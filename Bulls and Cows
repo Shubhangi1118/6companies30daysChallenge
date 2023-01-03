@@ -1,0 +1,32 @@
+class Solution {
+public:
+    string getHint(string secret, string guess) {
+        int count_x=0;
+        int n = secret.size();
+        int count_y=0;
+        map<int,int> mp1;
+        map<int,int> mp2;
+        for(int i=0;i<n;i++)
+        {
+            if(secret[i]==guess[i])
+            {
+                count_x++;
+            }
+            else
+            {
+                mp1[secret[i]]++;
+                mp2[guess[i]]++;
+            }
+        }
+        for(auto it: mp1)
+        {
+            if(mp2.find(it.first)!=mp2.end())
+            {
+                count_y+=min(mp1[it.first],mp2[it.first]);
+            }
+        }
+        string ans;
+        ans =to_string(count_x)+"A"+to_string(count_y)+"B";
+        return ans;
+    }
+};
