@@ -1,0 +1,38 @@
+class Solution {
+public:
+    bool isRectangleCover(vector<vector<int>>& rectangles) {
+        int n = rectangles.size();
+        if(n==1)
+        {
+            return true;
+        }
+        map<pair<int,int>, int> mp;
+        for(int i=0;i<n;i++)
+        {
+            mp[{rectangles[i][0],rectangles[i][1]}]++;
+            mp[{rectangles[i][2],rectangles[i][3]}]++;
+            mp[{rectangles[i][0],rectangles[i][3]}]--;
+            mp[{rectangles[i][2],rectangles[i][1]}]--;
+        }
+        int c=0;
+        for(auto it:mp)
+        {
+            if(it.second!=0)
+            {
+                if(abs(it.second)!=1)
+                {
+                    return false;
+                }
+                else
+                {
+                    c++;
+                }
+            }
+        }
+        if(c==4)
+        {
+            return true;
+        }
+        return false;
+    }
+};
