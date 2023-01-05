@@ -1,0 +1,43 @@
+class Solution {
+public:
+bool solve(int i, vector<int> adj[], vector<int> &vis)
+{
+    if(vis[i]==1)
+    {
+        return true;
+    }
+    if(vis[i]==0)
+    {
+        vis[i]=1;
+        for(auto it: adj[i])
+        {
+            if(solve(it,adj,vis))
+            {
+                return true;
+            }
+        }
+        
+
+    }
+    vis[i]=2;
+    return false;
+    
+}
+    bool canFinish(int n, vector<vector<int>>& prerequisites) {
+    vector<int> vis(n,0);
+    vector<int> adj[n];
+    for(int i=0;i<prerequisites.size();i++)
+    {
+        adj[prerequisites[i][1]].push_back(prerequisites[i][0]);
+    }
+    for(int i=0;i<n;i++)
+    {
+        if(solve(i,adj,vis))
+        {
+            return false;
+        }
+    }
+    return true;
+        
+    }
+};
